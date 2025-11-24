@@ -246,6 +246,23 @@ HTML Element Self-closing
     (tag_name)))
 
 ==================
+HTML Element No content after Self-closing
+==================
+
+%div/= Test
+%div/Test
+%div/ Test
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (ERROR)
+    (ruby_insert
+    (ruby_code))))
+
+==================
 HTML Element Whitespace Removal
 ==================
 

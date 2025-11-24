@@ -100,12 +100,14 @@ module.exports = grammar({
       // Whitespace Removal
       optional(choice('>', '<', '<>', '><')),
 
-      // Self-closing (void tags)
-      optional('/'),
+      choice(
+        // Self-closing (void tags)
+        optional('/'),
 
-      // Inline content.
-      // TODO: This should be either _inline_content or _block_content.
-      optional($._inline_content),
+        // Inline content.
+        // TODO: This should be either _inline_content or _block_content.
+        optional($._inline_content),
+      ),
 
       // End of tag
       $._newline
