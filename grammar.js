@@ -38,7 +38,7 @@ module.exports = grammar({
       $._newline
     ),
 
-    filter_name: $ => /[a-zA-Z]+/,
+    filter_name: $ => /[a-zA-Z0-9_-]+/,
 
     _filter_declaration: $ => seq(
       ':',
@@ -68,12 +68,57 @@ module.exports = grammar({
     ),
 
     tag: $ => seq(
-      '%',
-      $.tag_name,
+      // Tag name
+      choice(
+        $.tag_name,
+        $.tag_class,
+        $.tag_id,
+      ),
+      // Class/id list
+      repeat(
+        choice(
+          $.tag_class,
+          $.tag_id
+        )
+      ),
+      // Make sure each attribute appears at most one time.
+      choice(
+        seq(optional($.hash_attributes), optional($.list_attributes), optional($.object_reference)),
+        seq(optional($.hash_attributes), optional($.object_reference), optional($.list_attributes)),
+        seq(optional($.list_attributes), optional($.hash_attributes), optional($.object_reference)),
+        seq(optional($.list_attributes), optional($.object_reference), optional($.hash_attributes)),
+        seq(optional($.object_reference), optional($.hash_attributes), optional($.list_attributes)),
+        seq(optional($.object_reference), optional($.list_attributes), optional($.hash_attributes)),
+      ),
+      // Whitespace Removal
+      optional(choice('>', '<', '<>', '><')),
+      // Self-closing (void tags)
+      optional('/'),
+      // End of tag
       $._newline
     ),
 
-    tag_name: $ => /[a-zA-Z0-9:_-]+/,
+    tag_name: _ => /%[-:\w]+/,
+    tag_class: _ => /\.[-:\w]+/,
+    tag_id: _ => /#[-:\w]+/,
+
+    object_reference: _ => seq(
+      '[',
+      repeat(/[^\[\]]/),  // anything except brackets
+      ']'
+    ),
+
+    hash_attributes: _ => seq(
+      '{',
+      repeat(/[^{}]/),     // anything except braces
+      '}'
+    ),
+
+    list_attributes: _ => seq(
+      '(',
+      repeat(/[^()]/),     // anything except parentheses
+      ')'
+    ),
 
     block: $ => seq(
       $.tag,

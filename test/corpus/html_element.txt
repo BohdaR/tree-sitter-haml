@@ -1,5 +1,5 @@
 ==================
-HTML Element
+HTML Element Regular
 ==================
 
 %div
@@ -9,6 +9,10 @@ HTML Element
 %section
 %ul
 %li
+.div
+.div2
+#div
+#div2
 
 ---
 
@@ -26,7 +30,15 @@ HTML Element
   (tag
     (tag_name))
   (tag
-    (tag_name)))
+    (tag_name))
+  (tag
+    (tag_class))
+  (tag
+    (tag_class))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id)))
 
 ==================
 HTML Element with inline Ruby
@@ -223,14 +235,17 @@ HTML Element Whitespace Removal
 .div2<
 .div3>
 .div4<>
+.div5><
 #div1
 #div2<
 #div3>
 #div4<>
+#div5><
 %br
 %br<
 %br>
 %br<>
+%br><
 
 ---
 
@@ -244,13 +259,19 @@ HTML Element Whitespace Removal
   (tag
     (tag_class))
   (tag
-    (tag_id))
+    (tag_class))
   (tag
     (tag_id))
   (tag
     (tag_id))
   (tag
     (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_name))
   (tag
     (tag_name))
   (tag
@@ -273,10 +294,10 @@ HTML Element Object reference
 (document
   (tag
     (tag_name)
-    (ruby_code))
+    (object_reference))
   (tag
     (tag_name)
-    (ruby_code))
+    (object_reference))
   (tag
     (tag_name)
-    (ruby_code)))
+    (object_reference)))

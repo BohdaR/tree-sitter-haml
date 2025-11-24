@@ -25,7 +25,7 @@ FILTERS Empty
     (filter_name)))
 
 ==================
-FILTERS Nested withing elements
+FILTERS Nested within elements
 ==================
 
 %p
@@ -43,3 +43,56 @@ FILTERS Nested withing elements
     (filter
       (filter_name)
       (filter_content))))
+
+==================
+FILTERS With Ruby interpolation
+==================
+
+:textile
+  I *really* prefer _#{flavor}_ jam.
+
+---
+
+(document
+  (filter
+    (filter_name)
+    (filter_content)))
+
+==================
+FILTERS Custom filter names
+==================
+
+:22textile1
+:22_textile1
+:textile1
+  I *really* prefer _#{flavor}_ jam.
+
+---
+
+(document
+  (filter
+    (filter_name))
+  (filter
+    (filter_name))
+  (filter
+    (filter_name)
+    (filter_content)))
+
+==================
+FILTERS Invalid filter names
+:error
+==================
+
+:22tex%tile1
+:22_te:xtile1
+
+---
+
+(document
+  (filter
+    (filter_name))
+  (filter
+    (filter_name))
+  (filter
+    (filter_name)
+    (filter_content)))
