@@ -92,13 +92,13 @@ HTML Element with plain text
 (document
   (tag
     (tag_name)
-    (plain_text_content))
+    (plain_text))
   (tag
     (tag_name)
-    (plain_text_content))
+    (plain_text))
   (tag
     (tag_name)
-    (plain_text_content)))
+    (plain_text)))
 
 ==================
 HTML Element with classes
@@ -246,21 +246,34 @@ HTML Element Self-closing
     (tag_name)))
 
 ==================
-HTML Element No content after Self-closing
+HTML Element No content after Self-closing 1
+:error
 ==================
 
 %div/= Test
+
+---
+
+
+==================
+HTML Element No content after Self-closing 2
+:error
+==================
+
 %div/Test
+
+---
+
+
+==================
+HTML Element No content after Self-closing 3
+:error
+==================
+
 %div/ Test
 
 ---
 
-(document
-  (tag
-    (tag_name)
-    (ERROR)
-    (ruby_insert
-    (ruby_code))))
 
 ==================
 HTML Element Whitespace Removal

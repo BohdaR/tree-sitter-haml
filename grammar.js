@@ -10,10 +10,6 @@
 module.exports = grammar({
   name: 'haml',
 
-  conflicts: $ => [
-    [$._node, $.block]
-  ],
-
   externals: $ => [
     $._newline,
     $._indent,
@@ -26,9 +22,9 @@ module.exports = grammar({
     _node: $ => choice(
       $.block,
       $.tag,
-      $.plain_text,
       $.ruby_insert,
-      $.filter
+      $.filter,
+      $.plain_text
     ),
 
     ruby_insert: $ => seq(
@@ -41,6 +37,8 @@ module.exports = grammar({
       alias($._text, $.ruby_code),
       $._newline
     ),
+
+    plain_text: _ => token(prec(-1, /[^\n]+/)),
 
     filter_name: $ => /[a-zA-Z0-9_-]+/,
 
@@ -115,6 +113,7 @@ module.exports = grammar({
 
     _inline_content: $ => choice(
       $.ruby_insert,
+      $.plain_text
     ),
 
     tag_name: _ => /%[-:\w]+/,
@@ -146,13 +145,6 @@ module.exports = grammar({
       $._dedent
     ),
 
-    _text: $ => /[^\s]+/,
-
-    plain_text: $ => seq(
-      optional($._indent),
-      /[^%\-="\.#\s:&~!].+/,
-      $._newline
-    ),
-
+    _text: $ => /[^\n]+/,
   }
 })
