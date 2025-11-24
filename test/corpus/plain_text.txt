@@ -1,0 +1,45 @@
+==================
+Plain text
+==================
+
+Hello world
+Just some random text
+This is a line with symbols !@#$%^&*()
+12345 is just numbers
+Text_with_underscores_and-dashes
+Mixed   spaces   inside   are   fine
+🌟 Unicode works fine here
+Just a trailing space 
+Tabs	inside	text
+
+---
+
+(document
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text))
+
+==================
+Escaping plain text
+==================
+
+\%div this is escaped
+\%a{ href: "#" }
+\- this is not ruby code
+\= this is not output code
+\/ this is not a comment
+
+---
+
+(document
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text)
+  (plain_text))

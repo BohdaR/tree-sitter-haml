@@ -1,0 +1,282 @@
+==================
+HTML Element
+==================
+
+%div
+%span
+%p
+%h1
+%section
+%ul
+%li
+
+---
+
+(document
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name)))
+
+==================
+HTML Element with inline Ruby
+==================
+
+%div= user.name
+%span= @title
+%li= item.label
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (ruby_code))
+  (tag
+    (tag_name)
+    (ruby_code))
+  (tag
+    (tag_name)
+    (ruby_code)))
+
+==================
+HTML Element with plain text
+==================
+
+%div user.name
+%span Hello Worlds
+%li \item.label
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (plain_text_content))
+  (tag
+    (tag_name)
+    (plain_text_content))
+  (tag
+    (tag_name)
+    (plain_text_content)))
+
+==================
+HTML Element with classes
+==================
+
+%div.display-none
+%div.display-none.h2
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (tag_class))
+  (tag
+    (tag_name)
+    (tag_class)
+    (tag_class)))
+
+==================
+HTML Element with IDs
+==================
+
+%div#title
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (tag_id)))
+
+==================
+HTML Element with ID and classes
+==================
+
+
+%div#title.display-none
+%div.display-none#title
+%div.display-none.h2#title
+%div#title.display-none.h2
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (tag_id)
+    (tag_class))
+  (tag
+    (tag_name)
+    (tag_class)
+    (tag_id))
+  (tag
+    (tag_name)
+    (tag_class)
+    (tag_class)
+    (tag_id))
+  (tag
+    (tag_name)
+    (tag_id)
+    (tag_class)
+    (tag_class)))
+
+==================
+HTML Element shortcut divs
+==================
+
+.book-info
+.book-info.second-class
+.book-info#book-info
+.book-info.second-class#book-info
+#book-info
+#book-info.first-class
+#book-info.first-class.second-class
+
+---
+
+(document
+  (tag
+    (tag_class))
+  (tag
+    (tag_class)
+    (tag_class))
+  (tag
+    (tag_class)
+    (tag_id))
+  (tag
+    (tag_class)
+    (tag_class)
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id)
+    (tag_class))
+  (tag
+    (tag_id)
+    (tag_class)
+    (tag_class)))
+
+==================
+HTML Element Self-closing
+==================
+
+.div1/
+.div2</
+.div3>/
+.div4<>/
+#div1/
+#div2</
+#div3>/
+#div4<>/
+%br/
+%br</
+%br>/
+%br<>/
+
+---
+
+(document
+  (tag
+    (tag_class))
+  (tag
+    (tag_class))
+  (tag
+    (tag_class))
+  (tag
+    (tag_class))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name)))
+
+==================
+HTML Element Whitespace Removal
+==================
+
+.div1
+.div2<
+.div3>
+.div4<>
+#div1
+#div2<
+#div3>
+#div4<>
+%br
+%br<
+%br>
+%br<>
+
+---
+
+(document
+  (tag
+    (tag_class))
+  (tag
+    (tag_class))
+  (tag
+    (tag_class))
+  (tag
+    (tag_class))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_id))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name))
+  (tag
+    (tag_name)))
+
+==================
+HTML Element Object reference
+==================
+
+%div[]
+%div[@user]
+%div[@user, :greeting]
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (ruby_code))
+  (tag
+    (tag_name)
+    (ruby_code))
+  (tag
+    (tag_name)
+    (ruby_code)))

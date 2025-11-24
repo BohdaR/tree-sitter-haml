@@ -1,0 +1,45 @@
+==================
+FILTERS
+==================
+
+:ruby
+  test = Test.first.to_label
+
+---
+
+(document
+  (filter
+    (filter_name)
+    (filter_content))
+
+==================
+FILTERS Empty
+==================
+
+:ruby
+
+---
+
+(document
+  (filter
+    (filter_name))
+
+==================
+FILTERS Nested withing elements
+==================
+
+%p
+  :markdown
+    # Greetings
+
+    Hello, *World*
+
+---
+
+(document
+  (block
+    (tag
+      (tag_name))
+    (filter
+      (filter_name)
+      (filter_content))
