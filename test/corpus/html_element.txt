@@ -47,19 +47,37 @@ HTML Element with inline Ruby
 %div= user.name
 %span= @title
 %li= item.label
+%li~ item.label
+%li&= item.label
+%li!= item.label
 
 ---
 
 (document
   (tag
     (tag_name)
-    (ruby_code))
+    (ruby_insert
+      (ruby_code)))
   (tag
     (tag_name)
-    (ruby_code))
+    (ruby_insert
+      (ruby_code)))
   (tag
     (tag_name)
-    (ruby_code)))
+    (ruby_insert
+      (ruby_code)))
+  (tag
+    (tag_name)
+    (ruby_insert
+      (ruby_code)))
+  (tag
+    (tag_name)
+    (ruby_insert
+      (ruby_code)))
+  (tag
+    (tag_name)
+    (ruby_insert
+      (ruby_code))))
 
 ==================
 HTML Element with plain text

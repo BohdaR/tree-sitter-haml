@@ -27,14 +27,18 @@ module.exports = grammar({
       $.block,
       $.tag,
       $.plain_text,
-      $.ruby_code,
+      $.ruby_insert,
       $.filter
     ),
 
-    ruby_code: $ => seq(
-      optional($._indent),
-      choice('-', '='),
-      $._text,
+    ruby_insert: $ => seq(
+      choice(
+        '=',
+        '~',  // Whitespace Preservation
+        '&=', // Escaping HTML
+        '!=', // Unescaping HTML
+      ),
+      alias($._text, $.ruby_code),
       $._newline
     ),
 
@@ -48,7 +52,7 @@ module.exports = grammar({
 
     _filter_text: $ => /[^\s]+/,
 
-    filter_content: $ => seq(
+    filter_body: $ => seq(
       repeat1($._filter_text),
     ),
 
@@ -59,7 +63,7 @@ module.exports = grammar({
           optional(
             seq(
               $._indent,
-              $.filter_content,
+              $.filter_body,
               $._dedent
             )
           )
@@ -74,6 +78,7 @@ module.exports = grammar({
         $.tag_class,
         $.tag_id,
       ),
+
       // Class/id list
       repeat(
         choice(
@@ -81,6 +86,7 @@ module.exports = grammar({
           $.tag_id
         )
       ),
+
       // Make sure each attribute appears at most one time.
       choice(
         seq(optional($.hash_attributes), optional($.list_attributes), optional($.object_reference)),
@@ -90,12 +96,23 @@ module.exports = grammar({
         seq(optional($.object_reference), optional($.hash_attributes), optional($.list_attributes)),
         seq(optional($.object_reference), optional($.list_attributes), optional($.hash_attributes)),
       ),
+
       // Whitespace Removal
       optional(choice('>', '<', '<>', '><')),
+
       // Self-closing (void tags)
       optional('/'),
+
+      // Inline content.
+      // TODO: This should be either _inline_content or _block_content.
+      optional($._inline_content),
+
       // End of tag
       $._newline
+    ),
+
+    _inline_content: $ => choice(
+      $.ruby_insert,
     ),
 
     tag_name: _ => /%[-:\w]+/,
@@ -127,11 +144,11 @@ module.exports = grammar({
       $._dedent
     ),
 
-    _text: $ => /[^%\-="\.#\s:].+/,
+    _text: $ => /[^\s]+/,
 
     plain_text: $ => seq(
       optional($._indent),
-      $._text,
+      /[^%\-="\.#\s:&~!].+/,
       $._newline
     ),
 
