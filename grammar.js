@@ -10,62 +10,85 @@
 module.exports = grammar({
   name: 'haml',
 
+  conflicts: $ => [
+    [$._node, $.block]
+  ],
+
   externals: $ => [
     $._newline,
     $._indent,
-    $._dedent,
-    $.string_start,
-    $.string_content,
-    $.string_end,
-    // TODO: rewrite scanner to support interpolation in string content
-    // $.interpolation_start,
-    // $.interpolation_content,
-    // $.interpolation_end,
-    $._comment,
-
-    // Allow the external scanner to check for the validity of closing brackets
-    // so that it can avoid returning dedent tokens between brackets.
-    ']',
-    ')',
-    '}',
-    $._except
+    $._dedent
   ],
 
   rules: {
     document: $ => repeat($._node),
 
-    // either a block or a simple line
     _node: $ => choice(
       $.block,
-      $.line,
-      $.plain_text
-    ),
-
-    // a line like: %div
-    line: $ => seq(
       $.tag,
+      $.plain_text,
+      $.ruby_code,
+      $.filter
+    ),
+
+    ruby_code: $ => seq(
+      optional($._indent),
+      choice('-', '='),
+      $._text,
       $._newline
     ),
 
-    plain_text: $ => seq(
-      /[a-zA-Z0-9:_-]+/,
-      $._newline
+    filter_name: $ => /[a-zA-Z]+/,
+
+    _filter_declaration: $ => seq(
+      ':',
+      $.filter_name,
+      $._newline,
     ),
 
-    // %something
+    _filter_text: $ => /[^\s]+/,
+
+    filter_content: $ => seq(
+      repeat1($._filter_text),
+    ),
+
+    filter: $ => seq(
+      prec.right(
+        seq(
+          $._filter_declaration,
+          optional(
+            seq(
+              $._indent,
+              $.filter_content,
+              $._dedent
+            )
+          )
+        )
+      )
+    ),
+
     tag: $ => seq(
       '%',
-      $.tag_name
+      $.tag_name,
+      $._newline
     ),
 
     tag_name: $ => /[a-zA-Z0-9:_-]+/,
 
     block: $ => seq(
-      $.tag,          // %div
-      $._newline,      // end-of-line
-      $._indent,       // scanner opened indent block
-      repeat($._node),// nested things
-      $._dedent        // scanner closed block
+      $.tag,
+      $._indent,
+      repeat($._node),
+      $._dedent
     ),
+
+    _text: $ => /[^%\-="\.#\s:].+/,
+
+    plain_text: $ => seq(
+      optional($._indent),
+      $._text,
+      $._newline
+    ),
+
   }
 })

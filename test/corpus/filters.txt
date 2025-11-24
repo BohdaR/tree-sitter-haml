@@ -10,7 +10,7 @@ FILTERS
 (document
   (filter
     (filter_name)
-    (filter_content))
+    (filter_content)))
 
 ==================
 FILTERS Empty
@@ -22,7 +22,7 @@ FILTERS Empty
 
 (document
   (filter
-    (filter_name))
+    (filter_name)))
 
 ==================
 FILTERS Nested withing elements
@@ -42,4 +42,4 @@ FILTERS Nested withing elements
       (tag_name))
     (filter
       (filter_name)
-      (filter_content))
+      (filter_content))))
