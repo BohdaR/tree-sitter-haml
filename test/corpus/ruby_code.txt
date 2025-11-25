@@ -40,3 +40,91 @@ Ruby code block
       (tag_name))
     (running_ruby
       (ruby_code))))
+
+==================
+Ruby method call
+==================
+
+= awesome_method partial: 'test_results', locals: { f:, test_schedule: test_schedule }
+= awesome_method(partial: 'test_results', locals: { f:, test_schedule: test_schedule })
+- awesome_method partial: 'test_results', locals: { f:, test_schedule: test_schedule }
+- awesome_method(partial: 'test_results', locals: { f:, test_schedule: test_schedule })
+
+---
+
+(document
+  (ruby_insert
+    (ruby_code))
+  (ruby_insert
+    (ruby_code))
+  (running_ruby
+    (ruby_code))
+  (running_ruby
+    (ruby_code)))
+
+==================
+Ruby call spreads multiple lines
+==================
+
+= awesome_method partial: 'test_results',
+                 locals: { f:,
+                           test_schedule: test_schedule }
+= awesome_method(partial: 'test_results',
+                 locals: { f:,
+                           test_schedule: test_schedule })
+- awesome_method partial: 'test_results',
+                 locals: { f:,
+                           test_schedule: test_schedule }
+- awesome_method(partial: 'test_results',
+                 locals: { f:,
+                           test_schedule: test_schedule })
+
+---
+
+(document
+  (ruby_insert
+    (ruby_code))
+  (ruby_insert
+    (ruby_code))
+  (running_ruby
+    (ruby_code))
+  (running_ruby
+    (ruby_code)))
+
+==================
+Ruby hash spreads multiple lines
+==================
+
+%div{
+  test: 12,
+  test_2: 21
+}
+
+%div{ test: 12,
+      test_2: 21 }
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (hash_attributes))
+  (tag
+    (tag_name)
+    (hash_attributes)))
+
+==================
+Ruby nested hash
+==================
+
+%div{
+  data: { test: 12 },
+  test_2: 21
+}
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (hash_attributes)))

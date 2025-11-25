@@ -158,9 +158,23 @@ module.exports = grammar({
       ']'
     ),
 
-    hash_attributes: _ => seq(
+    hash_attributes: $ => seq(
       '{',
-      repeat(/[^{}]/),     // anything except braces
+      optional($._hash_attribute_content),
+      '}'
+    ),
+
+    _hash_attribute_content: $ => repeat1(
+      choice(
+        /[^{}]/,                             // normal chars
+        $._nested_hash_attributes
+      )
+    ),
+
+    // Hidden rule for nested hashes
+    _nested_hash_attributes: $ => seq(
+      '{',
+      optional($._hash_attribute_content),
       '}'
     ),
 
