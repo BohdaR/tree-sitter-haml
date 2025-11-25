@@ -1,0 +1,42 @@
+==================
+Ruby code Regular
+==================
+
+- test = Test
+= test.to_label
+
+---
+
+(document
+  (running_ruby
+    (ruby_code))
+  (ruby_insert
+    (ruby_code)))
+
+==================
+Ruby code block
+==================
+
+= tests.each do
+  %h1
+  - foo = Bar.new
+
+- tests.each do
+  %h1
+  - foo = Bar.new
+
+---
+
+(document
+  (ruby_insert
+    (ruby_code)
+    (tag
+      (tag_name))
+    (running_ruby
+      (ruby_code)))
+  (running_ruby
+    (ruby_code)
+    (tag
+      (tag_name))
+    (running_ruby
+      (ruby_code))))

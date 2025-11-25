@@ -22,6 +22,7 @@ module.exports = grammar({
         $.doctype,
         $.tag,
         $.ruby_insert,
+        $.running_ruby,
         $.filter,
         $.plain_text
       )
@@ -41,7 +42,15 @@ module.exports = grammar({
         '!=', // Unescaping HTML
       ),
       alias($._text, $.ruby_code),
+      optional($._block_content),
       $._newline
+    ),
+
+    running_ruby: $ => seq(
+      '-',
+      alias($._text, $.ruby_code),
+      $._newline,
+      optional($._block_content)
     ),
 
     plain_text: _ => token(prec(-1, /[^\n]+/)),
@@ -131,6 +140,7 @@ module.exports = grammar({
         choice(
           $.tag,
           $.ruby_insert,
+          $.running_ruby,
           $.plain_text,
           $.filter
         )
