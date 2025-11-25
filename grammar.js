@@ -20,11 +20,18 @@ module.exports = grammar({
     document: $ => repeat($._node),
 
     _node: $ => choice(
+      $.doctype,
       $.block,
       $.tag,
       $.ruby_insert,
       $.filter,
       $.plain_text
+    ),
+
+    doctype: $ => seq(
+      "!!!",
+      optional(alias($._text, $.doctype_name)),
+      $._newline,
     ),
 
     ruby_insert: $ => seq(

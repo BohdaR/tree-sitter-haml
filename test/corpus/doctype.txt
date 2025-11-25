@@ -1,0 +1,75 @@
+==================
+Doctype: plain
+==================
+
+!!!
+---
+
+(document
+  (doctype))
+
+==================
+Doctype: XML
+==================
+
+!!! XML
+---
+
+(document
+  (doctype
+    (doctype_name)))
+
+==================
+Doctype: XML with encoding
+==================
+
+!!! XML iso-8859-1
+---
+
+(document
+  (doctype
+    (doctype_name)))
+
+==================
+Doctype: HTML5
+==================
+
+!!! 5
+---
+
+(document
+  (doctype
+    (doctype_name)))
+
+==================
+Doctype: Strict
+==================
+
+!!! Strict
+---
+
+(document
+  (doctype
+    (doctype_name)))
+
+==================
+Doctype: XHTML 1.0 Transitional
+==================
+
+!!! XHTML 1.0 Transitional
+---
+
+(document
+  (doctype
+    (doctype_name)))
+
+==================
+Doctype: RDFa
+==================
+
+!!! RDFa
+---
+
+(document
+  (doctype
+    (doctype_name)))
