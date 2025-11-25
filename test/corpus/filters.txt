@@ -37,9 +37,8 @@ FILTERS Nested within elements
 ---
 
 (document
-  (block
-    (tag
-      (tag_name))
+  (tag
+    (tag_name)
     (filter
       (filter_name)
       (filter_body))))

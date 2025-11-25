@@ -17,15 +17,14 @@ module.exports = grammar({
   ],
 
   rules: {
-    document: $ => repeat($._node),
-
-    _node: $ => choice(
-      $.doctype,
-      $.block,
-      $.tag,
-      $.ruby_insert,
-      $.filter,
-      $.plain_text
+    document: $ => repeat(
+      choice(
+        $.doctype,
+        $.tag,
+        $.ruby_insert,
+        $.filter,
+        $.plain_text
+      )
     ),
 
     doctype: $ => seq(
@@ -59,11 +58,11 @@ module.exports = grammar({
       choice(
         $._newline,
         seq(
-            $._newline,
-            $._indent,
-            $.filter_body,
-            $._dedent
-          )
+          $._newline,
+          $._indent,
+          $.filter_body,
+          $._dedent
+        )
       ),
     ),
 
@@ -96,17 +95,29 @@ module.exports = grammar({
       // Whitespace Removal
       optional(choice('>', '<', '<>', '><')),
 
+      // Either a closing tag or inline content or block content.
       choice(
-        // Self-closing (void tags)
-        optional('/'),
+        // Either a closing tag or inline content.
+        seq(
+          optional(
+            choice(
+              // Self-closing (void tags)
+              '/',
 
-        // Inline content.
-        // TODO: This should be either _inline_content or _block_content.
-        optional($._inline_content),
-      ),
+              // Inline content.
+              $._inline_content,
+            ),
+          ),
 
-      // End of tag
-      $._newline
+          // End of tag
+          $._newline
+        ),
+        seq(
+          // End of tag
+          $._newline,
+          $._block_content,
+        )
+      )
     ),
 
     _inline_content: $ => choice(
@@ -114,7 +125,18 @@ module.exports = grammar({
       $.plain_text
     ),
 
-    // _block_content: $ => seq();
+    _block_content: $ => seq(
+      $._indent,
+      repeat(
+        choice(
+          $.tag,
+          $.ruby_insert,
+          $.plain_text,
+          $.filter
+        )
+      ),
+      $._dedent
+    ),
 
     tag_name: _ => /%[-:\w]+/,
     tag_class: _ => /\.[-:\w]+/,
@@ -136,13 +158,6 @@ module.exports = grammar({
       '(',
       repeat(/[^()]/),     // anything except parentheses
       ')'
-    ),
-
-    block: $ => seq(
-      $.tag,
-      $._indent,
-      repeat($._node),
-      $._dedent
     ),
 
     _text: $ => /[^\n]+/,
