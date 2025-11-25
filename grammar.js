@@ -42,31 +42,22 @@ module.exports = grammar({
 
     filter_name: $ => /[a-zA-Z0-9_-]+/,
 
-    _filter_declaration: $ => seq(
-      ':',
-      $.filter_name,
-      $._newline,
-    ),
-
-    _filter_text: $ => /[^\s]+/,
-
     filter_body: $ => seq(
-      repeat1($._filter_text),
+      repeat1($._text),
     ),
 
     filter: $ => seq(
-      prec.right(
+      ':',
+      $.filter_name,
+      choice(
+        $._newline,
         seq(
-          $._filter_declaration,
-          optional(
-            seq(
-              $._indent,
-              $.filter_body,
-              $._dedent
-            )
+            $._newline,
+            $._indent,
+            $.filter_body,
+            $._dedent
           )
-        )
-      )
+      ),
     ),
 
     tag: $ => seq(
@@ -115,6 +106,8 @@ module.exports = grammar({
       $.ruby_insert,
       $.plain_text
     ),
+
+    // _block_content: $ => seq();
 
     tag_name: _ => /%[-:\w]+/,
     tag_class: _ => /\.[-:\w]+/,

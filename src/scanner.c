@@ -3,7 +3,6 @@
 #include "tree_sitter/parser.h"
 
 #include <stdint.h>
-#include <string.h>
 #include <stdbool.h>
 
 enum TokenType {

@@ -10,7 +10,7 @@ FILTERS
 (document
   (filter
     (filter_name)
-    (filter_content)))
+    (filter_body)))
 
 ==================
 FILTERS Empty
@@ -42,7 +42,7 @@ FILTERS Nested within elements
       (tag_name))
     (filter
       (filter_name)
-      (filter_content))))
+      (filter_body))))
 
 ==================
 FILTERS With Ruby interpolation
@@ -56,43 +56,35 @@ FILTERS With Ruby interpolation
 (document
   (filter
     (filter_name)
-    (filter_content)))
+    (filter_body)))
 
 ==================
 FILTERS Custom filter names
 ==================
 
 :22textile1
-:22_textile1
-:textile1
   I *really* prefer _#{flavor}_ jam.
 
 ---
 
 (document
   (filter
-    (filter_name))
-  (filter
-    (filter_name))
-  (filter
     (filter_name)
-    (filter_content)))
+    (filter_body)))
 
 ==================
 FILTERS Invalid filter names
-:error
 ==================
 
-:22tex%tile1
-:22_te:xtile1
+:tex:tile
+    I *really* prefer _#{flavor}_ jam.
 
 ---
 
 (document
   (filter
-    (filter_name))
-  (filter
-    (filter_name))
+    (filter_name)
+    (MISSING _newline))
   (filter
     (filter_name)
-    (filter_content)))
+    (filter_body)))
