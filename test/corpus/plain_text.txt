@@ -43,3 +43,24 @@ Escaping plain text
   (plain_text)
   (plain_text)
   (plain_text))
+
+==================
+Plain text if one tag is present
+==================
+
+.row%test
+#row%test
+%row%test
+
+---
+
+(document
+  (tag
+    (tag_class)
+    (plain_text))
+  (tag
+    (tag_id)
+    (plain_text))
+  (tag
+    (tag_name)
+    (plain_text)))
