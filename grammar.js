@@ -41,17 +41,33 @@ module.exports = grammar({
         '&=', // Escaping HTML
         '!=', // Unescaping HTML
       ),
-      alias($._text, $.ruby_code),
-      optional($._block_content),
-      $._newline
+      $.ruby_code,
+      $._newline,
+      optional($._block_content)
     ),
 
     running_ruby: $ => seq(
       '-',
-      alias($._text, $.ruby_code),
+      $.ruby_code,
       $._newline,
       optional($._block_content)
     ),
+
+    ruby_code: _ => token(
+      prec(1,
+        seq(
+          /[^\n]+/,
+          repeat(
+            seq(
+              /,[ \t]*\n[ \t]*/,
+              /[^\n]+/,
+            ),
+          ),
+        ),
+      ),
+    ),
+
+    _text: $ => /[^\n]+/,
 
     plain_text: _ => token(prec(-1, /[^\n]+/)),
 
@@ -183,7 +199,5 @@ module.exports = grammar({
       repeat(/[^()]/),     // anything except parentheses
       ')'
     ),
-
-    _text: $ => /[^\n]+/,
   }
 })
