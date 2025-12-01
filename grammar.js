@@ -164,9 +164,22 @@ module.exports = grammar({
       $._dedent
     ),
 
-    tag_name: _ => /%[-:\w]+/,
-    tag_class: _ => /\.[-:\w]+/,
-    tag_id: _ => /#[-:\w]+/,
+    tag_name: $ => seq(
+      '%',
+      $._identifier,
+    ),
+
+    tag_class: $ => seq(
+      '.',
+      $._identifier,
+    ),
+
+    tag_id: $ => seq(
+      '#',
+      $._identifier,
+    ),
+
+    _identifier: _ => /[-:\w]+/,
 
     object_reference: _ => seq(
       '[',

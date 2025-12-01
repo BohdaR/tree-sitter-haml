@@ -215,11 +215,34 @@
     }
   },
   {
+    "type": "tag_class",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "tag_id",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "tag_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "!!!",
     "named": false
   },
   {
     "type": "!=",
+    "named": false
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "%",
     "named": false
   },
   {
@@ -236,6 +259,10 @@
   },
   {
     "type": "-",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
@@ -288,18 +315,6 @@
   },
   {
     "type": "ruby_code",
-    "named": true
-  },
-  {
-    "type": "tag_class",
-    "named": true
-  },
-  {
-    "type": "tag_id",
-    "named": true
-  },
-  {
-    "type": "tag_name",
     "named": true
   },
   {
