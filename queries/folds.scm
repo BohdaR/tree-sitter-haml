@@ -4,4 +4,5 @@
   (ruby_insert)
   (filter)
   (tag)
+  (comment)
 ] @fold

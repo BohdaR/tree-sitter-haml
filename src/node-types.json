@@ -1,5 +1,10 @@
 [
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "doctype",
     "named": true,
     "fields": {},
@@ -23,6 +28,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
         {
           "type": "doctype",
           "named": true
@@ -98,6 +107,10 @@
       "required": true,
       "types": [
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "filter",
           "named": true
         },
@@ -133,6 +146,10 @@
       "required": true,
       "types": [
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "filter",
           "named": true
         },
@@ -167,6 +184,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
         {
           "type": "filter",
           "named": true
@@ -259,6 +280,10 @@
   },
   {
     "type": "-",
+    "named": false
+  },
+  {
+    "type": "-#",
     "named": false
   },
   {

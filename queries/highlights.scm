@@ -57,3 +57,6 @@
   "<>" @punctuation.special)
 (tag
   "><" @punctuation.special)
+
+;; --- Comments ---
+(comment) @comment

@@ -1,0 +1,84 @@
+==================
+COMMENTS HTML
+==================
+
+/ = condition_text
+/
+  %p This doesn't render...
+  %div
+    %h1 Because it's commented out!
+
+---
+
+(document
+  (comment)
+  (comment))
+
+==================
+COMMENTS HTML nested
+==================
+
+%peanutbutterjelly
+  / This is the peanutbutterjelly element
+  I like sandwiches!
+
+---
+
+(document
+  (tag
+    (tag_name)
+    (comment)
+    (plain_text)))
+
+==================
+COMMENTS HTML with condition
+==================
+
+/[if IE]
+  %a{ :href => 'http://www.mozilla.com/en-US/firefox/' }
+    %h1 Get Firefox
+
+/[if IE] = condition_text
+
+/![if !IE]
+  You are not using Internet Explorer, or are using version 10+.
+
+---
+
+(document
+  (comment)
+  (comment)
+  (comment))
+
+==================
+COMMENTS HAML
+==================
+
+-# = condition_text
+-#
+  %p This doesn't render...
+  %div
+    %h1 Because it's commented out!
+
+---
+
+(document
+  (comment)
+  (comment))
+
+==================
+COMMENTS HAML nested
+==================
+
+.div
+  -#
+    %p This doesn't render...
+    %div
+      %h1 Because it's commented out!
+
+---
+
+(document
+  (tag
+    (tag_class)
+    (comment)))

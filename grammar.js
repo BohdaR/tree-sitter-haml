@@ -24,7 +24,8 @@ module.exports = grammar({
         $.ruby_insert,
         $.running_ruby,
         $.filter,
-        $.plain_text
+        $.plain_text,
+        $.comment
       )
     ),
 
@@ -33,6 +34,48 @@ module.exports = grammar({
       optional(alias($._text, $.doctype_name)),
       $._newline,
     ),
+
+    comment: $ => choice(
+      $._haml_comment,
+      $._html_comment
+    ),
+
+    _comment_condition: $ => token(
+      prec(
+        1,
+        seq(
+          optional('!'),
+          '[',
+          optional(/[^\n\]]+/),
+          ']'
+        )
+      )
+    ),
+
+    _html_comment: $ => seq(
+      '/',
+      optional($._comment_condition),
+      $._comment_content
+    ),
+
+    _haml_comment: $ => seq(
+      '-#',
+      $._comment_content
+    ),
+
+    _comment_content: $ => choice(
+      seq(
+        $._text,
+        $._newline
+      ),
+      seq(
+        $._newline,
+        $._indent,
+        repeat1($._text),
+        $._dedent
+      )
+    ),
+    _text: $ => /[^\n]+/,
 
     ruby_insert: $ => seq(
       choice(
@@ -158,7 +201,8 @@ module.exports = grammar({
           $.ruby_insert,
           $.running_ruby,
           $.plain_text,
-          $.filter
+          $.filter,
+          $.comment
         )
       ),
       $._dedent
