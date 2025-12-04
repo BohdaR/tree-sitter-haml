@@ -1,3 +1,9 @@
+[
+  "%"
+  "."
+  "#"
+] @punctuation.delimiter
+
 ;; --- Doctype ---
 (doctype
   "!!!" @keyword
@@ -5,8 +11,8 @@
 
 ;; --- Tags (%p, .cls, #id) ---
 (tag_name) @tag
-(tag_class) @attribute
-(tag_id) @attribute
+(tag_class) @property
+(tag_id) @constant
 
 ;; Object reference [Foo]
 (object_reference) @punctuation.bracket
